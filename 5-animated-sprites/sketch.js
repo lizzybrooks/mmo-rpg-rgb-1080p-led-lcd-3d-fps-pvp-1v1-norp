@@ -6,9 +6,6 @@ var xMoveN = 0;
 var yMove = 0;
 var yMoveN = 0;
 
-function preload(){
-  jellyimg= loadImage("obamid.png")
-};
 function setup() {
   createCanvas(800, 800);
   background(220);
