@@ -8,11 +8,11 @@ var yMoveN = 0;
 
 function setup() {
   createCanvas(800, 800);
-  background(220);
+
 
 };
 function draw() {
-
+background(220);
   jelly()
   jellyX=jellyX+xMove+xMoveN
   jellyY=jellyY+yMove+yMoveN
