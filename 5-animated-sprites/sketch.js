@@ -16,6 +16,8 @@ background(220);
   jelly()
   jellyX=jellyX+xMove+xMoveN
   jellyY=jellyY+yMove+yMoveN
+  yMoveN+=.2
+
   if (xMove < 0){
     xMove= 0
     }
@@ -28,17 +30,17 @@ background(220);
   if (xMoveN < 0){
     xMoveN+=0.2
   }
-  if (yMove < 0){
-    yMove= 0
-    }
-  if (yMove > 0){
-    yMove-=0.2
-  }
-  if (yMoveN > 0){
-    yMoveN= 0
-    }
-  if (yMoveN < 0){
-    yMoveN+=0.2
+  // if (yMove < 0){
+  //   yMove= 0
+  //   }
+  // if (yMove > 0){
+  //   yMove-=0.2
+  // }
+  // if (yMoveN > 0){
+  //   yMoveN= 0
+  //   }
+  if (yMoveN > 750){
+    yMoveN=0
   }
 };
 
