@@ -4,6 +4,7 @@ var yMove = 0;
 var yMoveN = 0;
 let char;
 let groundTest
+let headTest
 function setup() {
   createCanvas(1600, 900);
   char = new bruh(800, 800,"white");
@@ -15,8 +16,9 @@ fill(148, 240, 10)
 rect(0, 830, 1600, 100);
 rect (400, 700, 150, 10)
 fill(110, 86, 8)
-rect (400, 710, 150, 7)
+rect(400, 710, 150, 7)
 groundTest = get(char.x, char.y+31)
+headTest = get(char.x, char.y)
 char.drawBruh();
 char.moveBruh();
 
@@ -25,17 +27,17 @@ char.moveBruh();
 
 
 class bruh {
-	constructor(x,y,color){ //every ball needs an x value and a y value
+	constructor(x,y,color){
 		    this.x = x;
     		this.y = y;
         this.color= color;
 	}
-	drawBruh(){  // draw a ball on the screen at x,y
+	drawBruh(){
     		stroke(.5);
     		fill(this.color);
 		    rect(this.x,this.y,30,30);
 	}
-	moveBruh(){ //update the location of the ball, so it moves across the screen
+	moveBruh(){
     this.x=this.x+xMove+xMoveN
     this.y=this.y+yMove+yMoveN
     yMoveN+=.4
@@ -55,6 +57,7 @@ class bruh {
 
     if (groundTest[0] == 148 && groundTest[1] == 240 && groundTest[2] == 10){
       yMoveN=0
+      this.y=this.y-0.4
     }
 
     if (keyIsDown(RIGHT_ARROW)){
@@ -69,11 +72,16 @@ class bruh {
     if (xMoveN < -7){
       xMoveN=-7
     }
-    if (groundTest[0] == 110 && groundTest[1] == 86 && groundTest[2] == 8){
-      yMoveN=0
+    if (headTest[0] == 110 && headTest[1] == 86 && headTest[2] == 8){
+      yMoveN= .3
     }
     if (keyIsDown(UP_ARROW) && groundTest[0] == 148 && groundTest[1] == 240 && groundTest[2] == 10){
       yMoveN=yMoveN-10
     }
+    if (this.x >1570){
+      this.x=1570
+    }
+    if (this.x<0)
+    this.x=0
 	}
 }
