@@ -1,39 +1,54 @@
-//create a variable to hold one ball
-let b;
-let anotherBall;
+// ITP Networked Media, Fall 2014
+// https://github.com/shiffman/itp-networked-media
+// Daniel Shiffman
+
+// Keep track of our socket connection
+var socket;
 
 function setup() {
-  createCanvas(800, 400);
-  b = new Ball(0, 100,"red"); //make a new ball from the Ball class and call it b.
-  anotherBall = new Ball(200,20,"green");
+  createCanvas(400, 400);
+  background(0);
+  // Start a socket connection to the server
+  // Some day we would run this server somewhere else
+  socket = io.connect('http://localhost:3000');
+  // We make a named event called 'mouse' and write an
+  // anonymous callback function
+  socket.on('mouse',
+    // When we receive data
+    function(data) {
+      console.log("Got: " + data.x + " " + data.y);
+      // Draw a blue circle
+      fill(0,0,255);
+      noStroke();
+      ellipse(data.x, data.y, 20, 20);
+    }
+  );
 }
 
-
-function draw(){
-	background(220);
-    b.drawBall(); //draw the ball called b (go look in the Ball class for the drawBall function)
-    b.moveBall(); //move the ball called b (go look in the Ball class for the moveBall function)
-    anotherBall.drawBall();
-    anotherBall.moveBall();
-
+function draw() {
+  // Nothing
 }
 
+function mouseDragged() {
+  // Draw some white circles
+  fill(255);
+  noStroke();
+  ellipse(mouseX,mouseY,20,20);
+  // Send the mouse coordinates
+  sendmouse(mouseX,mouseY);
+}
 
-//ball class from which to create new balls with similar properties.
-class Ball {
+// Function for sending to the socket
+function sendmouse(xpos, ypos) {
+  // We are sending!
+  console.log("sendmouse: " + xpos + " " + ypos);
 
-	constructor(x,y,color){ //every ball needs an x value and a y value
-		    this.x = x;
-    		this.y = y;
-        this.color= color;
-	}
-	drawBall(){  // draw a ball on the screen at x,y
-    		stroke(0);
-    		fill(this.color);
-		    ellipse(this.x,this.y,10,10);
-	}
-	moveBall(){ //update the location of the ball, so it moves across the screen
-		this.x = this.x+2;
-		this.y = this.y+.5;
-	}
+  // Make a little object with  and y
+  var data = {
+    x: xpos,
+    y: ypos
+  };
+
+  // Send that object to the socket
+  socket.emit('mouse',data);
 }
