@@ -1,4 +1,3 @@
-
 let char;
 let groundTest
 let headTest
@@ -26,6 +25,7 @@ function draw() {
   char.moveBruh();
   char.land()
   fill(148, 240, 10)
+  noStroke()
   ground.drawPlatform();
   plat1.drawPlatform();
 
@@ -42,8 +42,20 @@ class bruh {
      this.yMoveN = yMoveN
      this.color= color;
      this.jumpable = jumpable
+     this.hit = false;
 
-	}
+	this.collide = function(obj){
+
+		this.hit = collideRectRect(this.x, this.y, this.w, this.h, obj.x, obj.y, obj.w, obj.h); //collide the cir object into this rectangle object.
+}
+		if(this.hit){
+			this.jumpable = true
+      print("hit")
+		}
+    else {
+      this.jumpable = false
+    }
+  }
 
 	drawBruh(){
     stroke(.5);
@@ -110,7 +122,7 @@ class bruh {
     }
 	}
   land(){
-    if(this.y>800){
+    if(this.hit == true){
       this.yMoveN=0
       this.y=this.y-0.4
       print("landed")
