@@ -1,12 +1,13 @@
 let char;
 let groundTest
 let headTest
-
+var plat0
 function setup() {
   createCanvas(1600, 900);
   char = new bruh(800, 800, 0, 0, 0, 0, false, "white");
-  ground = new platform(0, 830, 1600, 100)
+  // ground = new platform(0, 830, 1600, 100)
   plat1 = new platform(400, 700, 150, 10)
+  plat0 = new rectObj(0, 830, 1600, 100)
 }
 
 function draw() {
@@ -42,20 +43,7 @@ class bruh {
      this.yMoveN = yMoveN
      this.color= color;
      this.jumpable = jumpable
-     this.hit = false;
 
-	this.collide = function(obj){
-
-		this.hit = collideRectRect(this.x, this.y, this.w, this.h, obj.x, obj.y, obj.w, obj.h); //collide the cir object into this rectangle object.
-}
-		if(this.hit){
-			this.jumpable = true
-      print("hit")
-		}
-    else {
-      this.jumpable = false
-    }
-  }
 
 	drawBruh(){
     stroke(.5);
